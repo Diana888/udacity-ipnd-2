@@ -1,0 +1,59 @@
+
+sample = '''A ___1___ is created with the def keyword. You specify the inputs a ___1___ takes by
+adding ___2___ separated by commas between the parentheses. ___1___s by default return ___3___ if you
+don't specify the value to return. ___2___ can be standard data types such as string, number, dictionary,
+tuple, and ___4___ or can be more complicated such as objects and lambda functions.'''
+
+numbered_blanks = ["___1___", "___2___", "___3___", "___4___"]
+answer_key = ["function", "operands", "none", "list"]
+
+def word_in_blank(word, numbered_blanks):
+    for blank in numbered_blanks:
+        if blank in word:
+            return blank
+    return None
+
+def check_answer(user_input, answer_key):
+    while user_input != answer_key:
+        return "Not quite. Please try again."
+    return user_input
+
+#print check_answer('function', answer_key[0])
+
+easy_paragraph = "some text with a few blanks."
+medium_paragraph = "a bit more text with a few more blanks."
+hard_paragraph = "more text, more blanks!"
+paragraph = [easy_paragraph, medium_paragraph, hard_paragraph]
+level = [easy, medium, hard]
+
+def choose_level(user_input, paragraph):
+    user_input = raw_input("Please choose a level (easy, medium, or hard):" + " ")
+    if user_input == "easy":
+        print "You have selected easy!"
+        print "Below is your challenge paragraph. You will have 3 guesses to fill in each blank."
+        print easy_paragraph
+    if user_input == "medium":
+        print "You have selected medium!"
+        print "Below is your challenge paragraph. You will have 3 guesses to fill in each blank."
+        print medium_paragraph
+    else:
+        print "You have selected hard!"
+        print "Below is your challenge paragraph. You will have 3 guesses to fill in each blank."
+        print hard_paragraph
+
+print choose_level(user_input, paragraph)
+
+def run_quiz(paragraph, numbered_blanks):
+    replaced = []
+    split_paragraph = paragraph.split()
+    for word in split_paragraph:
+        replacement = word_in_blank(word, numbered_blanks)
+        if replacement != None:
+            user_input = raw_input("Type in answer: " + replacement + " ")
+            correct_answer = check_answer(user_input, answer_key)
+            word = word.replace(replacement, correct_answer)
+            replaced.append(word)
+        else:
+            replaced.append(word)
+    replaced = " ".join(replaced)
+    return replaced
